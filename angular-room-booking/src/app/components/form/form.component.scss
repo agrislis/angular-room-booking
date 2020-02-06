@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.room-block {
+  width: 25%;
+
+  &_red {
+    background-color: #ffdbdb;
+  }
+
+  &_green {
+    background-color: #e1ff8f;
+  }
+
+  &_blue {
+    background-color: #9a9cff;
+  }
+}
