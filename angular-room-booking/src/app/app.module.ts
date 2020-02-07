@@ -6,13 +6,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatRadioModule, MatInputModule, MatButtonModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { FormComponent } from './components';
+import { FormComponent, RoomsComponent } from './components';
 import { ApiService } from './services';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormComponent
+    FormComponent,
+    RoomsComponent
   ],
   imports: [
     BrowserModule,

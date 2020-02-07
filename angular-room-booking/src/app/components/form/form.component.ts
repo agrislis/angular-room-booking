@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Event } from '../../interfaces';
 import { ApiService } from '../../services';
 
 @Component({
@@ -10,10 +9,11 @@ import { ApiService } from '../../services';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  eventForm: FormGroup;
   room1: Event[];
   room2: Event[];
   room3: Event[];
+
+  eventForm: FormGroup;
 
   constructor(private apiservice: ApiService, private fb: FormBuilder) { }
 
@@ -40,7 +40,7 @@ export class FormComponent implements OnInit {
       title: [[''], [
         Validators.required,
         Validators.pattern(/[A-zА-я0-9,]/)
-        ]
+      ]
       ]
     });
   }

@@ -1,31 +1,9 @@
-<div class="container">
-  <div class="form-block room-block">
-    <form [formGroup]="eventForm" (ngSubmit)="submit()">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Title" formControlName="title">
-      </mat-form-field>
-      <button mat-raised-button color="primary" [disabled]="eventForm.invalid" type="submit">Book</button>
-    </form>
-  </div>
-  <div class="room-block room-block_red">
-    <ul>
-      <li *ngFor="let event of room1">
-        <p>{{event.title}}</p>
-      </li>
-    </ul>
-  </div>
-  <div class="room-block room-block_green">
-    <ul>
-      <li *ngFor="let event of room2">
-        <p>{{event.title}}</p>
-      </li>
-    </ul>
-  </div>
-  <div class="room-block room-block_blue">
-    <ul>
-      <li *ngFor="let event of room3">
-        <p>{{event.title}}</p>
-      </li>
-    </ul>
-  </div>
+<div class="form">
+  <form [formGroup]="eventForm" (ngSubmit)="submit()">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Title" formControlName="title">
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="eventForm.invalid" type="submit">Book</button>
+  </form>
 </div>
+<app-rooms [room1]="room1" [room2]="room2" [room3]="room3"></app-rooms>

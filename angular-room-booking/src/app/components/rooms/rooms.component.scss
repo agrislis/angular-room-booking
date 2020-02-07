@@ -1,0 +1,23 @@
+.room-group {
+  display: flex;
+  position: absolute;
+  right: 0;
+  height: 100vh;
+  width: 75%;
+}
+
+.room-block {
+  width: 33.33%;
+
+  &_red {
+    background-color: #ffcdcd;
+  }
+
+  &_green {
+    background-color: #cfffcd;
+  }
+
+  &_blue {
+    background-color: #cde3ff;
+  }
+}
