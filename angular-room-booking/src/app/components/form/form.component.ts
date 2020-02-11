@@ -12,7 +12,6 @@ export class FormComponent implements OnInit {
   room1: Event[];
   room2: Event[];
   room3: Event[];
-
   eventForm: FormGroup;
 
   constructor(private apiservice: ApiService, private fb: FormBuilder) { }
@@ -31,17 +30,27 @@ export class FormComponent implements OnInit {
   }
 
   submit(): void {
-    this.apiservice.addEvent({ title: this.eventForm.controls.title.value });
+    this.apiservice.addEvent({
+      title: this.eventForm.controls.title.value,
+      date: this.eventForm.controls.date.value,
+      timeStart: this.eventForm.controls.timeStart.value,
+      timeEnd: this.eventForm.controls.timeEnd.value,
+      roomId: this.eventForm.controls.roomId.value
+    });
     this.getEvent();
   }
 
-  private initForm(): void {
+  initForm(): void {
     this.eventForm = this.fb.group({
       title: [[''], [
         Validators.required,
         Validators.pattern(/[A-zА-я0-9,]/)
       ]
-      ]
+      ],
+      date: [[], Validators.required],
+      timeStart: [[], Validators.required],
+      timeEnd: [[], Validators.required],
+      roomId: ['1']
     });
   }
 }

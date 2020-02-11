@@ -10,8 +10,14 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   addEvent(event: Event) {
-    const body = { title: event.title };
-    switch(event.title) {
+    const body = {
+      title: event.title,
+      date: event.date,
+      timeStart: event.timeStart,
+      timeEnd: event.timeEnd,
+      roomId: event.roomId
+    };
+    switch(event.roomId) {
       case '1': {
         this.http.post('http://localhost:3000/room1', body).subscribe(data => body);
         break;

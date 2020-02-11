@@ -1,5 +1,27 @@
-.form {
+.form-section {
   position: absolute;
   height: 100vh;
   width: 25%;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 20px 60px;
+
+  &__radio-group-label {
+    margin-top: 15px;
+  }
+
+  &__radio-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  &__button {
+    margin: 35px auto;
+    width: 100px;
+  }
 }

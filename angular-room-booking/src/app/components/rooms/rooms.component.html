@@ -3,6 +3,9 @@
     <ul>
       <li *ngFor="let event of room1">
         <p>{{event.title}}</p>
+        <p>{{event.date | date:'dd.MM'}}</p>
+        <p>{{event.timeStart | date:'H:mm'}}</p>
+        <p>{{event.timeEnd | date:'H:mm'}}</p>
       </li>
     </ul>
   </div>
@@ -10,6 +13,9 @@
     <ul>
       <li *ngFor="let event of room2">
         <p>{{event.title}}</p>
+        <p>{{event.date | date:'dd.MM'}}</p>
+        <p>{{event.timeStart | date:'H:mm'}}</p>
+        <p>{{event.timeEnd | date:'H:mm'}}</p>
       </li>
     </ul>
   </div>
@@ -17,6 +23,9 @@
     <ul>
       <li *ngFor="let event of room3">
         <p>{{event.title}}</p>
+        <p>{{event.date | date:'dd.MM'}}</p>
+        <p>{{event.timeStart | date:'H:mm'}}</p>
+        <p>{{event.timeEnd | date:'H:mm'}}</p>
       </li>
     </ul>
   </div>
