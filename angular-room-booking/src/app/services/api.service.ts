@@ -11,11 +11,11 @@ export class ApiService {
 
   addEvent(event: Event) {
     const body = {
+      roomId: event.roomId,
       title: event.title,
       date: event.date,
       timeStart: event.timeStart,
       timeEnd: event.timeEnd,
-      roomId: event.roomId
     };
     switch(event.roomId) {
       case '1': {

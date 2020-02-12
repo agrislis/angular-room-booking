@@ -1,5 +1,5 @@
 <div class="form-section">
-  <form [formGroup]="eventForm" (ngSubmit)="submit()" class="form">
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="form">
     <mat-form-field>
       <input matInput type="text" placeholder="Событие" formControlName="title">
     </mat-form-field>

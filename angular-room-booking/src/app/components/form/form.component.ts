@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 
 import { ApiService } from '../../services';
 
@@ -12,13 +12,34 @@ export class FormComponent implements OnInit {
   room1: Event[];
   room2: Event[];
   room3: Event[];
-  eventForm: FormGroup;
+  eventForm = this.fb.group({
+    title: [[''], [
+      Validators.required,
+      Validators.pattern(/[A-zА-я0-9,]/)
+    ]
+    ],
+    date: [[], Validators.required],
+    timeStart: [[], Validators.required],
+    timeEnd: [[], Validators.required],
+    roomId: ['1']
+  });
 
   constructor(private apiservice: ApiService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.initForm();
     this.getEvent();
+  }
+
+  onSubmit(): void {
+    this.apiservice.addEvent({
+      roomId: this.eventForm.controls.roomId.value,
+      title: this.eventForm.controls.title.value,
+      date: this.eventForm.controls.date.value,
+      timeStart: this.eventForm.controls.timeStart.value,
+      timeEnd: this.eventForm.controls.timeEnd.value,
+    });
+    this.getEvent();
+    this.resetForm(this.eventForm);
   }
 
   getEvent(): void {
@@ -29,28 +50,13 @@ export class FormComponent implements OnInit {
     });
   }
 
-  submit(): void {
-    this.apiservice.addEvent({
-      title: this.eventForm.controls.title.value,
-      date: this.eventForm.controls.date.value,
-      timeStart: this.eventForm.controls.timeStart.value,
-      timeEnd: this.eventForm.controls.timeEnd.value,
-      roomId: this.eventForm.controls.roomId.value
-    });
-    this.getEvent();
-  }
-
-  initForm(): void {
-    this.eventForm = this.fb.group({
-      title: [[''], [
-        Validators.required,
-        Validators.pattern(/[A-zА-я0-9,]/)
-      ]
-      ],
-      date: [[], Validators.required],
-      timeStart: [[], Validators.required],
-      timeEnd: [[], Validators.required],
-      roomId: ['1']
+  resetForm(eventForm: FormGroup) {
+    let control: AbstractControl = null;
+    eventForm.reset();
+    eventForm.markAsUntouched();
+    Object.keys(eventForm.controls).forEach((name) => {
+      control = eventForm.controls[name];
+      control.setErrors(null);
     });
   }
 }
