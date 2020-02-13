@@ -1,23 +1,79 @@
+$pink: #E91E63;
+$yellow: #FFC107;
+$purple: #3F51B5;
+$white: #FFF;
+
 .room-group {
   display: flex;
   position: absolute;
   right: 0;
-  height: 100vh;
+  height: 100%;
   width: 75%;
 }
 
 .room-block {
   width: 33.33%;
+}
 
-  &_red {
-    background-color: #ffcdcd;
+.event {
+  margin: 15px;
+  display: flex;
+
+  &__roomId {
+    width: 35px;
+    height: 35px;
+    margin-right: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+
+    &_pink {
+      background-color: $pink;
+    }
+
+    &_yellow {
+      background-color: $yellow;
+    }
+
+    &_purple {
+      background-color: $purple;
+    }
   }
 
-  &_green {
-    background-color: #cfffcd;
+  &__content {
+    width: 250px;
   }
 
-  &_blue {
-    background-color: #cde3ff;
+  &__date {
+    display: inline-block;
+    margin: 0;
+
+    &_border {
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+
+      &_pink {
+        border-bottom-color: $pink;
+      }
+
+      &_yellow {
+        border-bottom-color: $yellow;
+      }
+
+      &_purple {
+        border-bottom-color: $purple;
+      }
+    }
+
+    &_capitalize {
+      text-transform: capitalize;
+    }
+  }
+
+  &__title {
+    font-size: 18px;
+    margin: 14px 0;
   }
 }

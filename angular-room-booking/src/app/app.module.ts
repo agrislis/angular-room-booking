@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -8,7 +8,7 @@ import {
   MatRadioModule,
   MatInputModule,
   MatButtonModule,
-  MatDatepickerModule
+  MatCardModule
 } from '@angular/material';
 import {
   OwlDateTimeModule,
@@ -16,6 +16,11 @@ import {
   OwlDateTimeIntl,
   OWL_DATE_TIME_LOCALE
 } from 'ng-pick-datetime';
+
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu, 'ru');
 
 import { AppComponent } from './app.component';
 import { FormComponent, RoomsComponent } from './components';
@@ -42,11 +47,12 @@ export class DefaultIntl extends OwlDateTimeIntl {
     MatInputModule,
     MatButtonModule,
     HttpClientModule,
-    MatDatepickerModule,
+    MatCardModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'ru' },
     { provide: OWL_DATE_TIME_LOCALE, useValue: 'ru' },
     { provide: OwlDateTimeIntl, useClass: DefaultIntl },
     ApiService,
