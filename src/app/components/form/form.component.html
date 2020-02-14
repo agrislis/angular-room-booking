@@ -1,0 +1,31 @@
+<div class="form-section">
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Событие" formControlName="title">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="День" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="date">
+      <owl-date-time [pickerType]="'calendar'" [firstDayOfWeek]="1" #dt1></owl-date-time>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Время начала" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
+        formControlName="timeStart">
+      <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Время окончания" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+        formControlName="timeEnd">
+      <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time>
+    </mat-form-field>
+    <label id="room-id-radio-group-label" class="form__radio-group-label">Номер переговорной</label>
+    <mat-radio-group color="primary" aria-labelledby="room-id-radio-group-label" formControlName="roomId"
+      class="form__radio-group">
+      <mat-radio-button value="1">1</mat-radio-button>
+      <mat-radio-button value="2">2</mat-radio-button>
+      <mat-radio-button value="3">3</mat-radio-button>
+    </mat-radio-group>
+    <button mat-raised-button color="primary" [disabled]="eventForm.invalid" type="submit"
+      class="form__button">Отправить</button>
+  </form>
+</div>
+<app-rooms [room1]="room1" [room2]="room2" [room3]="room3"></app-rooms>

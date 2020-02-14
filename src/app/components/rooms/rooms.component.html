@@ -1,0 +1,53 @@
+<div class="room-group">
+  <div class="room-block">
+    <ul>
+      <li *ngFor="let event of room1">
+        <mat-card class="event">
+          <div class="event__roomId event__roomId_pink">1</div>
+          <mat-card-content class="event__content">
+            <p class="event__date event__date_border event__date_border_pink">
+              <span class="event__date event__date_capitalize">{{event.date | date:'EEEE'}},</span>
+              {{event.date | date:'d MMMM'}}
+            </p>
+            <p class="event__title">{{event.title}}</p>
+            <p class="event__date event__date_border event__date_border_pink">c {{event.timeStart | date:'H:mm'}} до {{event.timeEnd | date:'H:mm'}}</p>
+          </mat-card-content>
+        </mat-card>
+      </li>
+    </ul>
+  </div>
+  <div class="room-block">
+    <ul>
+      <li *ngFor="let event of room2">
+        <mat-card class="event">
+          <div class="event__roomId event__roomId_yellow">2</div>
+          <mat-card-content class="event__content">
+            <p class="event__date event__date_border event__date_border_yellow">
+              <span class="event__date event__date_capitalize">{{event.date | date:'EEEE'}},</span>
+              {{event.date | date:'d MMMM'}}
+            </p>
+            <p class="event__title">{{event.title}}</p>
+            <p class="event__date event__date_border event__date_border_yellow">c {{event.timeStart | date:'H:mm'}} до {{event.timeEnd | date:'H:mm'}}</p>
+          </mat-card-content>
+        </mat-card>
+      </li>
+    </ul>
+  </div>
+  <div class="room-block">
+    <ul>
+      <li *ngFor="let event of room3">
+        <mat-card class="event">
+          <div class="event__roomId event__roomId_purple">3</div>
+          <mat-card-content class="event__content">
+            <p class="event__date event__date_border event__date_border_purple">
+              <span class="event__date event__date_capitalize">{{event.date | date:'EEEE'}},</span>
+              {{event.date | date:'d MMMM'}}
+            </p>
+            <p class="event__title">{{event.title}}</p>
+            <p class="event__date event__date_border event__date_border_purple">c {{event.timeStart | date:'H:mm'}} до {{event.timeEnd | date:'H:mm'}}</p>
+          </mat-card-content>
+        </mat-card>
+      </li>
+    </ul>
+  </div>
+</div>
