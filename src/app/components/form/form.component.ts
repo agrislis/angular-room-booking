@@ -50,7 +50,7 @@ export class FormComponent implements OnInit {
     });
   }
 
-  resetForm(eventForm: FormGroup) {
+  resetForm(eventForm: FormGroup): void {
     let control: AbstractControl = null;
     eventForm.reset();
     eventForm.markAsUntouched();

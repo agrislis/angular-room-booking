@@ -9,7 +9,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  addEvent(event: Event) {
+  addEvent(event: Event): void {
     const body = {
       roomId: event.roomId,
       title: event.title,
