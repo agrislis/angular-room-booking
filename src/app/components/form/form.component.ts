@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 
 import { ApiService } from '../../services';
 
@@ -12,19 +12,19 @@ export class FormComponent implements OnInit {
   room1: Event[];
   room2: Event[];
   room3: Event[];
-  eventForm = this.fb.group({
-    title: [[''], [
+
+  eventForm = new FormGroup({
+    title: new FormControl('', [
       Validators.required,
       Validators.pattern(/[A-zА-я0-9,]/)
-    ]
-    ],
-    date: [[], Validators.required],
-    timeStart: [[], Validators.required],
-    timeEnd: [[], Validators.required],
-    roomId: ['1']
+    ]),
+    date: new FormControl('', Validators.required),
+    timeStart: new FormControl('', Validators.required),
+    timeEnd: new FormControl('', Validators.required),
+    roomId: new FormControl('1', Validators.required)
   });
 
-  constructor(private apiservice: ApiService, private fb: FormBuilder) { }
+  constructor(private apiservice: ApiService) { }
 
   ngOnInit() {
     this.getEvent();
@@ -39,7 +39,6 @@ export class FormComponent implements OnInit {
       timeEnd: this.eventForm.controls.timeEnd.value,
     });
     this.getEvent();
-    this.resetForm(this.eventForm);
   }
 
   getEvent(): void {
@@ -50,13 +49,13 @@ export class FormComponent implements OnInit {
     });
   }
 
-  resetForm(eventForm: FormGroup): void {
-    let control: AbstractControl = null;
-    eventForm.reset();
-    eventForm.markAsUntouched();
-    Object.keys(eventForm.controls).forEach((name) => {
-      control = eventForm.controls[name];
-      control.setErrors(null);
+  resetForm(formDirective: FormGroupDirective): void {
+    formDirective.resetForm();
+    this.eventForm.reset({
+      title: '',
+      date: '',
+      timeStart: '',
+      roomId: '1'
     });
   }
 }
