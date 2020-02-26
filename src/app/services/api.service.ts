@@ -14,8 +14,8 @@ export class ApiService {
       roomId: event.roomId,
       title: event.title,
       date: event.date,
-      timeStart: event.timeStart,
-      timeEnd: event.timeEnd,
+      timeStart: Date.parse(event.timeStart),
+      timeEnd: Date.parse(event.timeEnd),
     };
     switch(event.roomId) {
       case '1': {

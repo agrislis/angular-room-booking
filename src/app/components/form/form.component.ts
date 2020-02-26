@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 
 import { ApiService } from '../../services';
 
@@ -12,34 +12,49 @@ export class FormComponent implements OnInit {
   room1: Event[];
   room2: Event[];
   room3: Event[];
-  eventForm = this.fb.group({
-    title: [[''], [
+
+  currentTime = new Date();
+
+  isBusy: boolean;
+
+  formDirective: FormGroupDirective;
+
+  eventForm = new FormGroup({
+    title: new FormControl('', [
       Validators.required,
       Validators.pattern(/[A-zА-я0-9,]/)
-    ]
-    ],
-    date: [[], Validators.required],
-    timeStart: [[], Validators.required],
-    timeEnd: [[], Validators.required],
-    roomId: ['1']
+    ]),
+    date: new FormControl(this.currentTime),
+    timeStart: new FormControl('', Validators.required),
+    timeEnd: new FormControl('', Validators.required),
+    roomId: new FormControl('1')
   });
 
-  constructor(private apiservice: ApiService, private fb: FormBuilder) { }
+  constructor(private apiservice: ApiService) { }
 
   ngOnInit() {
     this.getEvent();
   }
 
-  onSubmit(): void {
-    this.apiservice.addEvent({
-      roomId: this.eventForm.controls.roomId.value,
-      title: this.eventForm.controls.title.value,
-      date: this.eventForm.controls.date.value,
-      timeStart: this.eventForm.controls.timeStart.value,
-      timeEnd: this.eventForm.controls.timeEnd.value,
-    });
-    this.getEvent();
-    this.resetForm(this.eventForm);
+  onSubmit(formDirective: FormGroupDirective): void {
+    switch (this.eventForm.controls.roomId.value) {
+      case '1': {
+        this.checkTimeSlot(this.room1);
+        break;
+      }
+      case '2': {
+        this.checkTimeSlot(this.room2);
+        break;
+      }
+      case '3': {
+        this.checkTimeSlot(this.room3);
+        break;
+      }
+    }
+
+    if (this.isBusy === false) {
+      this.resetForm(formDirective);
+    }
   }
 
   getEvent(): void {
@@ -50,13 +65,44 @@ export class FormComponent implements OnInit {
     });
   }
 
-  resetForm(eventForm: FormGroup): void {
-    let control: AbstractControl = null;
-    eventForm.reset();
-    eventForm.markAsUntouched();
-    Object.keys(eventForm.controls).forEach((name) => {
-      control = eventForm.controls[name];
-      control.setErrors(null);
+  resetForm(formDirective: FormGroupDirective): void {
+    formDirective.resetForm();
+    this.eventForm.reset({
+      title: '',
+      date: this.currentTime,
+      timeStart: '',
+      timeEnd: '',
+      roomId: '1'
     });
+  }
+
+  addEvent(): void {
+    this.apiservice.addEvent({
+      roomId: this.eventForm.controls.roomId.value,
+      title: this.eventForm.controls.title.value,
+      date: this.eventForm.controls.date.value,
+      timeStart: this.eventForm.controls.timeStart.value,
+      timeEnd: this.eventForm.controls.timeEnd.value,
+    });
+    this.getEvent();
+  }
+
+  checkTimeSlot(arrayOfEvents: Event[]): boolean {
+    let setTimeStart = this.eventForm.controls.timeStart.value;
+    let setTimeEnd = this.eventForm.controls.timeEnd.value;
+    let busySlot = 0;
+
+    arrayOfEvents.forEach((event) => {
+      if ((setTimeStart >= event['timeStart'] && setTimeStart <= event['timeEnd']) || (setTimeEnd >= event['timeStart'] && setTimeEnd <= event['timeEnd'])) {
+        ++busySlot;
+      }
+    });
+
+    if (busySlot > 0) {
+      return this.isBusy = true;
+    } else {
+      this.addEvent();
+      return this.isBusy = false;
+    }
   }
 }
