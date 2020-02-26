@@ -25,3 +25,18 @@
     width: 100px;
   }
 }
+
+.error-card {
+  text-align: center;
+  background-color: rgb(255, 190, 190);
+  margin: 0 25px;
+
+  &__text {
+    margin: 0;
+  }
+
+  &__span-break {
+    margin-top: 5px;
+    display: table;
+  }
+}

@@ -1,19 +1,19 @@
 <div class="form-section">
-  <form [formGroup]="eventForm" #formDirective="ngForm" (ngSubmit)="onSubmit(); resetForm(formDirective)" class="form">
+  <form [formGroup]="eventForm" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)" class="form">
     <mat-form-field>
       <input matInput type="text" placeholder="Событие" formControlName="title">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="День" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="date">
+      <input matInput placeholder="День" [min]="currentTime" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="date">
       <owl-date-time [pickerType]="'calendar'" [firstDayOfWeek]="1" #dt1></owl-date-time>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Время начала" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
+      <input matInput placeholder="Время начала" [min]="currentTime" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
         formControlName="timeStart">
       <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Время окончания" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+      <input matInput placeholder="Время окончания" [min]="currentTime" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
         formControlName="timeEnd">
       <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time>
     </mat-form-field>
@@ -27,5 +27,12 @@
     <button mat-raised-button color="primary" [disabled]="!eventForm.valid" type="submit"
       class="form__button">Отправить</button>
   </form>
+  <mat-card *ngIf="isBusy" class="error-card">
+    <mat-card-title>Ой :(</mat-card-title>
+    <p class="error-card__text">
+      К сожалению, выбранное время в этой переговорной занято.
+      <span class="error-card__span-break">Попробуйте выбрать другое время или переговорную.</span>
+    </p>
+  </mat-card>
 </div>
 <app-rooms [room1]="room1" [room2]="room2" [room3]="room3"></app-rooms>
