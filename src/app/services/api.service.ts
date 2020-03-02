@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
+import { map } from 'rxjs/internal/operators'
 
 import { Event } from '../interfaces';
 
 @Injectable()
 export class ApiService {
+
+  room1: 'http://localhost:3000/room1';
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +20,7 @@ export class ApiService {
       timeStart: Date.parse(event.timeStart),
       timeEnd: Date.parse(event.timeEnd),
     };
-    switch(event.roomId) {
+    switch (event.roomId) {
       case '1': {
         this.http.post('http://localhost:3000/room1', body).subscribe(data => body);
         break;
@@ -35,9 +38,24 @@ export class ApiService {
 
   getEventData(): Observable<any> {
     return forkJoin(
-      this.http.get('http://localhost:3000/room1'),
-      this.http.get('http://localhost:3000/room2'),
-      this.http.get('http://localhost:3000/room3')
+      this.http.get<Event[]>('http://localhost:3000/room1').pipe(
+        map(data => data.sort((a, b) => {
+          console.log(a.timeStart);
+          return Number(a.timeStart) - Number(b.timeStart);
+        }))
+      ),
+      this.http.get<Event[]>('http://localhost:3000/room2').pipe(
+        map(data => data.sort((a, b) => {
+          console.log(a.timeStart);
+          return Number(a.timeStart) - Number(b.timeStart);
+        }))
+      ),
+      this.http.get<Event[]>('http://localhost:3000/room3').pipe(
+        map(data => data.sort((a, b) => {
+          console.log(a.timeStart);
+          return Number(a.timeStart) - Number(b.timeStart);
+        }))
+      )
     );
   }
 }
