@@ -9,3 +9,5 @@
 ## Как запустить json-сервер
 
 Открыть второе окно терминала и ввести `./node_modules/.bin/json-server api/db.json -m ./node_modules/json-server-auth --routes api/routes.json` и после запуска обновить окно приложения в браузере.
+
+Готово
